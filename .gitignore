@@ -1,0 +1,8 @@
+alfabattle2_abattle_train_target.csv
+alfabattle2_prediction_session_timestamp.csv 
+alfabattle2_abattle_sample_prediction.csv
+alfabattle2_abattle_clickstream.zip
+alfabattle2_abattle_clickstream
+.ipynb_checkpoints
+*.parquet
+*.idea

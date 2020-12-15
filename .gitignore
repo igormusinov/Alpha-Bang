@@ -6,3 +6,10 @@ alfabattle2_abattle_clickstream
 .ipynb_checkpoints
 *.parquet
 *.idea
+
+submits/*
+!submits/.gitkeep 
+__pycache__
+catboost_info
+
+prediction.csv

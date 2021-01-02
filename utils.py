@@ -18,13 +18,13 @@ def create_submit_files(result: pd.DataFrame, meta_info:  dict=None, name: str=N
 		print(f"submits/{folder_name}/meta_info.json created")
 
 
-def make_submit(model, preprocess_func, meta_info: dict=None, name: str=None):
-    alfabattle2_prediction_session_timestamp = pd.read_csv("alfabattle2_prediction_session_timestamp.csv")
-    test = preprocess_func(alfabattle2_prediction_session_timestamp)
+def make_submit(model, preprocess_func, pred_df, meta_info: dict=None, name: str=None, **kwargs):
+    test = preprocess_func(pred_df, **kwargs)
     if isinstance(model, CatBoost):
         prediction = model.predict(test, prediction_type='Class').reshape(-1)
     else:
         prediction =  model.predict(test)
-    alfabattle2_prediction_session_timestamp["prediction"] = pd.Series(prediction)
-    alfabattle2_prediction_session_timestamp.drop("timestamp", axis=1, inplace=True) 
-    create_submit_files(alfabattle2_prediction_session_timestamp, meta_info, name)  
+    for_pred = pred_df.copy()
+    for_pred["prediction"] = pd.Series(prediction)
+    for_pred = for_pred.drop("timestamp", axis=1) 
+    create_submit_files(for_pred, meta_info, name)  
